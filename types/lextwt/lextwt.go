@@ -56,6 +56,10 @@ func ParseFile(r io.Reader, twter types.Twter) (types.TwtFile, error) {
 		f.twter.URL = v.Value()
 	}
 
+	if v, ok := f.Info().GetN("avatar", 0); ok {
+		f.twter.Avatar = v.Value()
+	}
+
 	return f, nil
 }
 func ParseLine(line string, twter types.Twter) (twt types.Twt, err error) {
