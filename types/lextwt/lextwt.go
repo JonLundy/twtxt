@@ -40,7 +40,7 @@ func ParseFile(r io.Reader, twter types.Twter) (types.TwtFile, error) {
 	nErrors = len(parser.Errs())
 
 	if (nLines+nErrors > 0) && nLines == nErrors {
-		log.Warnf("erroneous feed dtected (nLines + nErrors > 0 && nLines == nErrors): %d/%d", nLines, nErrors)
+		log.Warnf("erroneous feed detected (nLines + nErrors > 0 && nLines == nErrors): %d/%d", nLines, nErrors)
 		// return nil, ErrParseElm
 	}
 
@@ -54,6 +54,10 @@ func ParseFile(r io.Reader, twter types.Twter) (types.TwtFile, error) {
 
 	if v, ok := f.Info().GetN("twturl", 0); ok {
 		f.twter.URL = v.Value()
+	}
+
+	if v, ok := f.Info().GetN("avatar", 0); ok {
+		f.twter.Avatar = v.Value()
 	}
 
 	return f, nil
